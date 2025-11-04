@@ -56,15 +56,21 @@ function Navbar() {
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
         {/* Logo and Brand */}
-        <div className="flex items-center gap-2">
-          <img
-            src={navActive ? '/384.png' : '/385.png'}
-            alt="Australian Business Exchange Logo"
-            className="h-10 w-10 mr-2"
+        <div className="flex items-center gap-3">
+          <img 
+            src={navActive ? "/X logo white background.png" : "/X logo.png"}
+            alt="Dealbase Logo"
+            className="h-6 w-6"
           />
-          <span className={`font-extrabold text-lg md:text-xl ${navActive ? 'text-[#23235B]' : 'text-white'}`} style={{ fontFamily: 'sans-serif' }}>
-            AustralianBusinessExchange
-            <span className={`text-sm font-normal align-baseline ${navActive ? 'text-[#23235B]' : 'text-white'}`}>.com</span>
+          <span 
+            className={`font-semibold text-xl md:text-2xl tracking-tight ${navActive ? 'text-[#23235B]' : 'text-white'}`}
+            style={{ 
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              letterSpacing: '-0.02em',
+              fontWeight: 600
+            }}
+          >
+            Dealbase
           </span>
         </div>
         {/* Menu */}
@@ -762,7 +768,7 @@ export default function SellersPage() {
 
       {/* Acquire.com Process Section */}
       <section className="w-full bg-[#F5F7FB] py-20 px-2 flex flex-col items-center">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-[#23235B] text-center mb-16">We make online business acquisitions fast, safe, and easy</h2>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-[#23235B] text-center mb-16">We make business acquisitions fast, secure, and effortless</h2>
         <div className="relative flex flex-col md:flex-row items-start justify-center gap-8 w-full max-w-6xl mx-auto">
           {/* Left Card: Chat/Support */}
           <div className="flex-1 bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center min-w-[300px] max-w-sm mx-auto">
@@ -926,20 +932,22 @@ export default function SellersPage() {
           </div>
           {/* Right: Text and Features */}
           <div className="flex-1 max-w-xl">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#23235B] mb-4">Sell quickly, easily, and for the highest price</h2>
-            <p className="text-lg text-[#23235B] mb-6"> <a href="#" className="text-[#4F5DFF] underline">Sell your online business</a> by getting in front of 500k+ buyers. Get expert help to market and close. Start conversations that lead to acquisition in as little as 90 days.</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#23235B] mb-4">Sell your business quickly, confidently, and for the best possible price</h2>
+            <p className="text-lg text-[#23235B] mb-6">
+              List your business on <a href="#" className="text-[#4F5DFF] underline">Dealbase</a> and get in front of serious, qualified buyers actively searching for opportunities. Our platform helps you attract the right attention, manage offers, and close deals securely — all in one place.
+            </p>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3">
                 <span className="mt-1"><svg width="24" height="24" fill="none"><circle cx="12" cy="12" r="12" fill="#4F5DFF"/><path d="M8 12.5l2.5 2.5L16 9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-                <span className="text-[#23235B] font-semibold">Get expert help to create the perfect listing</span>
+                <span className="text-[#23235B] font-semibold">Get expert guidance to craft a standout listing that sells your story</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-1"><svg width="24" height="24" fill="none"><circle cx="12" cy="12" r="12" fill="#4F5DFF"/><path d="M8 12.5l2.5 2.5L16 9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-                <span className="text-[#23235B] font-semibold">Field offers from qualified buyers with verified funds</span>
+                <span className="text-[#23235B] font-semibold">Receive genuine offers from verified, ready-to-buy investors</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-1"><svg width="24" height="24" fill="none"><circle cx="12" cy="12" r="12" fill="#4F5DFF"/><path d="M8 12.5l2.5 2.5L16 9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-                <span className="text-[#23235B] font-semibold">Close safely for free with Escrow.com</span>
+                <span className="text-[#23235B] font-semibold">Close securely through trusted transaction partners — at no extra cost</span>
               </li>
             </ul>
             <button className="bg-[#23235B] hover:bg-[#18194A] text-white font-semibold px-8 py-3 rounded-lg text-lg shadow transition-colors flex items-center gap-2">
@@ -951,33 +959,33 @@ export default function SellersPage() {
 
       {/* Testimonials Section */}
       <section className="w-full bg-[#F5F7FB] py-20 px-2 flex flex-col items-center">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-[#23235B] text-center mb-16">What do founders and buyers say about Acquire.com?</h2>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-[#23235B] text-center mb-16">What business owners and investors say about Dealbase</h2>
         <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Testimonial 1 */}
           <div className="bg-[#E6E9F8] rounded-2xl shadow p-8 flex flex-col">
-            <div className="text-xl font-bold text-[#23235B] mb-4">"Amazing first acquisition experience"</div>
-            <div className="text-[#23235B] text-base mb-8 flex-1">I wanted to sell a side project that I had been working on when I came across acquire.com. The startup listing process was pretty quick and simple. Within a few days, I received tens of offers from people. And within the next two weeks, I had sold my first startup! I could not have imagined the process being any simpler.</div>
+            <div className="text-xl font-bold text-[#23235B] mb-4">"A seamless experience from listing to sale"</div>
+            <div className="text-[#23235B] text-base mb-8 flex-1">I listed my business on Dealbase hoping to test the waters, and within days I had multiple genuine enquiries. The process was straightforward and transparent — from creating my listing to finalising the deal. Couldn't have asked for an easier way to sell.</div>
             <div className="flex items-center gap-3 mt-auto">
-              <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Haider S." className="w-8 h-8 rounded-full object-cover" />
-              <span className="font-bold text-[#23235B] text-base">Haider S.</span>
+              <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="James T." className="w-8 h-8 rounded-full object-cover" />
+              <span className="font-bold text-[#23235B] text-base">— James T.</span>
             </div>
           </div>
           {/* Testimonial 2 */}
           <div className="bg-[#E6E9F8] rounded-2xl shadow p-8 flex flex-col">
-            <div className="text-xl font-bold text-[#23235B] mb-4">"Meet quality startups without any of the headaches"</div>
-            <div className="text-[#23235B] text-base mb-8 flex-1">Circle Square Capital is a private equity fund focused on creating value and growth in lower middle market buyouts. Acquire.com helps us meet quality startups without any of the headaches.</div>
+            <div className="text-xl font-bold text-[#23235B] mb-4">"Access to serious buyers without the hassle"</div>
+            <div className="text-[#23235B] text-base mb-8 flex-1">As an investor, I'm always searching for opportunities that align with our acquisition goals. Dealbase connects us directly with motivated sellers and quality listings, saving us time and unnecessary back-and-forth.</div>
             <div className="flex items-center gap-3 mt-auto">
-              <img src="https://randomuser.me/api/portraits/men/47.jpg" alt="Alan E." className="w-8 h-8 rounded-full object-cover" />
-              <span className="font-bold text-[#23235B] text-base">Alan E.</span>
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah L." className="w-8 h-8 rounded-full object-cover" />
+              <span className="font-bold text-[#23235B] text-base">— Sarah L.</span>
             </div>
           </div>
           {/* Testimonial 3 */}
           <div className="bg-[#E6E9F8] rounded-2xl shadow p-8 flex flex-col">
-            <div className="text-xl font-bold text-[#23235B] mb-4">"The best marketplace to buy or sell online businesses"</div>
-            <div className="text-[#23235B] text-base mb-8 flex-1">Acquire.com is, by far, the best product on the market for buying and selling online businesses. Sellers don't have to worry—every project/startup I've listed has been sold within a week or two. To top it off, Acquire.com manages the entire process from start to finish (for free!) -- from collecting NDAs, to closing.</div>
+            <div className="text-xl font-bold text-[#23235B] mb-4">"Finally, a platform built for real business transactions"</div>
+            <div className="text-[#23235B] text-base mb-8 flex-1">Dealbase makes buying and selling businesses feel professional and safe. Every step — from verified buyers to secure closings — is handled smoothly. It's become my go-to platform for exploring new opportunities.</div>
             <div className="flex items-center gap-3 mt-auto">
-              <img src="https://randomuser.me/api/portraits/men/48.jpg" alt="Glenn R." className="w-8 h-8 rounded-full object-cover" />
-              <span className="font-bold text-[#23235B] text-base">Glenn R.</span>
+              <img src="https://randomuser.me/api/portraits/men/48.jpg" alt="Michael R." className="w-8 h-8 rounded-full object-cover" />
+              <span className="font-bold text-[#23235B] text-base">— Michael R.</span>
             </div>
           </div>
         </div>
@@ -985,31 +993,31 @@ export default function SellersPage() {
 
       {/* Top Picks Section */}
       <section className="w-full bg-[#F5F7FB] py-20 px-2 flex flex-col items-center">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-[#23235B] text-center mb-4">Top picks</h2>
-        <p className="text-[#23235B] text-lg text-center mb-12 max-w-2xl">A few of our favorite SaaS businesses live and under expert guidance from our M&A team.</p>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-[#23235B] text-center mb-4">Top Picks</h2>
+        <p className="text-[#23235B] text-lg text-center mb-12 max-w-2xl">A few of our favourite Australian businesses live and under expert guidance from our M&A team.</p>
         <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
           {/* Card 1 */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col">
-            <div className="bg-[#23235B] text-white px-6 py-3 text-sm font-semibold">SaaS startup in the United Kingdom</div>
+            <div className="bg-[#23235B] text-white px-6 py-3 text-sm font-semibold">SaaS startup in Sydney</div>
             <div className="flex-1 px-6 py-6 flex flex-col justify-between">
-              <div className="text-xl font-bold text-[#23235B] mb-4">A profitable AI video editing tool with 450+ paying customers</div>
-              <div className="bg-[#F5F7FB] rounded-lg px-4 py-3 text-[#23235B] text-base font-semibold mt-4">Asking price <span className="font-bold">$150k (1.3x profit)</span></div>
+              <div className="text-xl font-bold text-[#23235B] mb-4">Profitable workflow automation platform serving 600+ paying customers</div>
+              <div className="bg-[#F5F7FB] rounded-lg px-4 py-3 text-[#23235B] text-base font-semibold mt-4">Asking price: <span className="font-bold">$320k (2.1× profit)</span></div>
             </div>
           </div>
           {/* Card 2 */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col">
-            <div className="bg-[#23235B] text-white px-6 py-3 text-sm font-semibold">SaaS startup in the United Arab Emirates</div>
+            <div className="bg-[#23235B] text-white px-6 py-3 text-sm font-semibold">E-commerce business in Melbourne</div>
             <div className="flex-1 px-6 py-6 flex flex-col justify-between">
-              <div className="text-xl font-bold text-[#23235B] mb-4">VCs Are Betting Big | Copy Trading Software That Lets Investors Win Passively</div>
-              <div className="bg-[#F5F7FB] rounded-lg px-4 py-3 text-[#23235B] text-base font-semibold mt-4">Asking price <span className="font-bold">$587k (5.5x profit)</span></div>
+              <div className="text-xl font-bold text-[#23235B] mb-4">Online store specialising in premium home fitness equipment with strong repeat sales</div>
+              <div className="bg-[#F5F7FB] rounded-lg px-4 py-3 text-[#23235B] text-base font-semibold mt-4">Asking price: <span className="font-bold">$480k (2.9× profit)</span></div>
             </div>
           </div>
           {/* Card 3 */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col">
-            <div className="bg-[#23235B] text-white px-6 py-3 text-sm font-semibold">SaaS startup in the United States</div>
+            <div className="bg-[#23235B] text-white px-6 py-3 text-sm font-semibold">Service business in Brisbane</div>
             <div className="flex-1 px-6 py-6 flex flex-col justify-between">
-              <div className="text-xl font-bold text-[#23235B] mb-4">Freight dispatch automation platform for carriers with streamlined, easy-to-use mobile and web apps</div>
-              <div className="bg-[#F5F7FB] rounded-lg px-4 py-3 text-[#23235B] text-base font-semibold mt-4">Asking price <span className="font-bold">$1.3M (3.3x profit)</span></div>
+              <div className="text-xl font-bold text-[#23235B] mb-4">Subscription-based bookkeeping platform supporting small businesses nationwide</div>
+              <div className="bg-[#F5F7FB] rounded-lg px-4 py-3 text-[#23235B] text-base font-semibold mt-4">Asking price: <span className="font-bold">$1.1M (3.4× profit)</span></div>
             </div>
           </div>
         </div>

@@ -70,15 +70,21 @@ export default function Navbar({ alwaysWhite = false }: NavbarProps) {
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
         {/* Logo and Brand */}
-        <Link href="/sellers" className="flex items-center gap-2 cursor-pointer group">
-          <img
-            src={navActive ? '/384.png' : '/385.png'}
-            alt="Australian Business Exchange Logo"
-            className="h-10 w-10 mr-2 group-hover:opacity-80 transition-opacity"
+        <Link href="/sellers" className="flex items-center gap-3 cursor-pointer group">
+          <img 
+            src={navActive ? "/X logo white background.png" : "/X logo.png"}
+            alt="Dealbase Logo"
+            className="h-6 w-6 group-hover:opacity-80 transition-opacity"
           />
-          <span className={`font-extrabold text-base md:text-lg lg:text-xl ${navActive ? 'text-[#23235B]' : 'text-white'}`} style={{ fontFamily: 'sans-serif' }}>
-            AusBizExchange
-            <span className={`text-xs font-normal align-baseline ${navActive ? 'text-[#23235B]' : 'text-white'}`}>.com</span>
+          <span 
+            className={`font-semibold text-xl md:text-2xl tracking-tight ${navActive ? 'text-[#23235B]' : 'text-white'}`}
+            style={{ 
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              letterSpacing: '-0.02em',
+              fontWeight: 600
+            }}
+          >
+            Dealbase
           </span>
         </Link>
         {/* Menu */}
