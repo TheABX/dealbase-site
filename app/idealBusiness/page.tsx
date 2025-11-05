@@ -130,7 +130,8 @@ export default function IdealStartupPage() {
       <div>hello</div>
     );
   } catch (error) {
-    content = <div>Error: {error.message}</div>;
+    const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+    content = <div>Error: {errorMessage}</div>;
   }
   return content;
 } 

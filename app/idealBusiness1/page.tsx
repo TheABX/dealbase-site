@@ -736,8 +736,9 @@ export default function IdealStartupPage1() {
         )}
       </div>
     );
-  } catch (error: any) {
-    content = <div style={{ color: 'red', padding: 32 }}><b>Runtime Error:</b> {error.message}</div>;
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+    content = <div style={{ color: 'red', padding: 32 }}><b>Runtime Error:</b> {errorMessage}</div>;
   }
   return content;
 }
