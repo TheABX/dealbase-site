@@ -77,8 +77,8 @@ export async function POST(req: Request) {
         inventory: input.inventory
       };
       // Drivers
-      if (metrics.profitMargin > 15) drivers.push(`Strong profit margin (${metrics.profitMargin.toFixed(1)}%)`);
-      if (['Subscription', 'Digital Product'].includes(metrics.model)) drivers.push(`High value business model (${metrics.model})`);
+      if (metrics.profitMargin && metrics.profitMargin > 15) drivers.push(`Strong profit margin (${metrics.profitMargin.toFixed(1)}%)`);
+      if (metrics.model && ['Subscription', 'Digital Product'].includes(metrics.model)) drivers.push(`High value business model (${metrics.model})`);
       if (metrics.traffic === 'Mostly Organic') drivers.push('Strong organic traffic');
       // Risks
       if (metrics.ownerInvolvement === '15+ hrs/week') {
@@ -89,7 +89,7 @@ export async function POST(req: Request) {
         risks.push('Heavy reliance on paid ads');
         recommendations.push('Diversify traffic sources to include more organic channels.');
       }
-      if (metrics.profitMargin < 10) {
+      if (metrics.profitMargin && metrics.profitMargin < 10) {
         risks.push('Low profit margin');
         recommendations.push('Review pricing and cost structure to improve profit margin.');
       }
@@ -136,20 +136,20 @@ export async function POST(req: Request) {
         topClientRevenuePct: input.topClientRevenuePct
       };
       // Drivers
-      if (metrics.profitMargin > 15) drivers.push(`Strong profit margin (${metrics.profitMargin.toFixed(1)}%)`);
+      if (metrics.profitMargin && metrics.profitMargin > 15) drivers.push(`Strong profit margin (${metrics.profitMargin.toFixed(1)}%)`);
       if (metrics.recurring) drivers.push('Recurring revenue model');
-      if (metrics.staffCount > 2) drivers.push('Established team');
-      if (metrics.yearsInOperation > 5) drivers.push('Long operating history');
+      if (metrics.staffCount && metrics.staffCount > 2) drivers.push('Established team');
+      if (metrics.yearsInOperation && metrics.yearsInOperation > 5) drivers.push('Long operating history');
       // Risks
       if (metrics.ownerInvolvement === 'High') {
         risks.push('High owner involvement');
         recommendations.push('Reduce owner involvement by delegating daily operations.');
       }
-      if (metrics.topClientRevenuePct > 50) {
+      if (metrics.topClientRevenuePct && metrics.topClientRevenuePct > 50) {
         risks.push(`Customer concentration: ${metrics.topClientRevenuePct}% from top clients`);
         recommendations.push('Diversify your customer base to reduce risk.');
       }
-      if (metrics.profitMargin < 10) {
+      if (metrics.profitMargin && metrics.profitMargin < 10) {
         risks.push('Low profit margin');
         recommendations.push('Review pricing and cost structure to improve profit margin.');
       }
@@ -185,14 +185,14 @@ export async function POST(req: Request) {
         assetValue: input.assetValue
       };
       // Drivers
-      if (metrics.profitMargin > 15) drivers.push(`Strong profit margin (${metrics.profitMargin.toFixed(1)}%)`);
+      if (metrics.profitMargin && metrics.profitMargin > 15) drivers.push(`Strong profit margin (${metrics.profitMargin.toFixed(1)}%)`);
       if (metrics.assetValue && metrics.assetValue > 0) drivers.push('Significant asset base');
       // Risks
       if (metrics.ownerInvolvement === 'High') {
         risks.push('High owner involvement');
         recommendations.push('Reduce owner involvement by delegating daily operations.');
       }
-      if (metrics.profitMargin < 10) {
+      if (metrics.profitMargin && metrics.profitMargin < 10) {
         risks.push('Low profit margin');
         recommendations.push('Review pricing and cost structure to improve profit margin.');
       }

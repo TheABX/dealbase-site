@@ -223,13 +223,13 @@ const ValuationBackendPage = () => {
               <div style={{ fontSize: '48px', fontWeight: 'bold', color: '#92400e', marginBottom: '8px' }}>
                 {String(valuationResults.industryBenchmark)}x
               </div>
-              <p style={{ color: '#b45309', fontSize: '14px' }}>Typical for {businessData.industry} businesses</p>
+              <p style={{ color: '#b45309', fontSize: '14px' }}>Typical for {String(businessData.industry)} businesses</p>
             </div>
           </div>
           
-          <div style={{ marginTop: '24px', padding: '16px', borderRadius: '8px', background: valuationResults.multiple > valuationResults.industryBenchmark ? '#dcfce7' : '#fef2f2' }}>
-            <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px', color: valuationResults.multiple > valuationResults.industryBenchmark ? '#166534' : '#dc2626' }}>
-              {valuationResults.multiple > valuationResults.industryBenchmark ? 'Above Industry Average' : 'Below Industry Average'}
+          <div style={{ marginTop: '24px', padding: '16px', borderRadius: '8px', background: Number(valuationResults.multiple) > Number(valuationResults.industryBenchmark) ? '#dcfce7' : '#fef2f2' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px', color: Number(valuationResults.multiple) > Number(valuationResults.industryBenchmark) ? '#166534' : '#dc2626' }}>
+              {Number(valuationResults.multiple) > Number(valuationResults.industryBenchmark) ? 'Above Industry Average' : 'Below Industry Average'}
             </h4>
             <p style={{ fontSize: '14px', color: Number(valuationResults.multiple) > Number(valuationResults.industryBenchmark) ? '#166534' : '#dc2626' }}>
               {Number(valuationResults.multiple) > Number(valuationResults.industryBenchmark)
@@ -285,41 +285,46 @@ const ValuationBackendPage = () => {
         </div>
 
         {/* AI Analysis Sections */}
-        {report.aiSections && (
+        {(() => {
+          const aiSections = report.aiSections;
+          if (!aiSections || typeof aiSections !== 'object' || aiSections === null) return null;
+          const sections = aiSections as Record<string, unknown>;
+          return (
           <div style={{ background: 'white', borderRadius: '16px', boxShadow: '0 10px 25px rgba(0,0,0,0.1)', padding: '32px', marginBottom: '32px' }}>
             <h3 style={{ fontSize: '24px', fontWeight: 'bold', color: '#111827', marginBottom: '24px' }}>AI Analysis & Insights</h3>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
-              {report.aiSections.valuationConfirmation && (
+              {typeof sections.valuationConfirmation === 'string' && (
                 <div style={{ background: '#f0f9ff', borderRadius: '12px', padding: '20px', borderLeft: '4px solid #2563eb' }}>
                   <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px', color: '#1e40af' }}>Valuation Summary</h4>
-                  <p style={{ fontSize: '14px', color: '#1e40af', lineHeight: '1.5' }}>{report.aiSections.valuationConfirmation}</p>
+                  <p style={{ fontSize: '14px', color: '#1e40af', lineHeight: '1.5' }}>{String(sections.valuationConfirmation)}</p>
                 </div>
               )}
               
-              {report.aiSections.keyFactors && (
+              {typeof sections.keyFactors === 'string' && (
                 <div style={{ background: '#f0fdf4', borderRadius: '12px', padding: '20px', borderLeft: '4px solid #10b981' }}>
                   <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px', color: '#166534' }}>Key Value Drivers</h4>
-                  <p style={{ fontSize: '14px', color: '#166534', lineHeight: '1.5' }}>{report.aiSections.keyFactors}</p>
+                  <p style={{ fontSize: '14px', color: '#166534', lineHeight: '1.5' }}>{String(sections.keyFactors)}</p>
                 </div>
               )}
               
-              {report.aiSections.risksAndOpportunities && (
+              {typeof sections.risksAndOpportunities === 'string' && (
                 <div style={{ background: '#fef3c7', borderRadius: '12px', padding: '20px', borderLeft: '4px solid #f59e0b' }}>
                   <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px', color: '#92400e' }}>Risks & Opportunities</h4>
-                  <p style={{ fontSize: '14px', color: '#92400e', lineHeight: '1.5' }}>{report.aiSections.risksAndOpportunities}</p>
+                  <p style={{ fontSize: '14px', color: '#92400e', lineHeight: '1.5' }}>{String(sections.risksAndOpportunities)}</p>
                 </div>
               )}
               
-              {report.aiSections.recommendations && (
+              {typeof sections.recommendations === 'string' && (
                 <div style={{ background: '#fef2f2', borderRadius: '12px', padding: '20px', borderLeft: '4px solid #ef4444' }}>
                   <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px', color: '#dc2626' }}>Recommendations</h4>
-                  <p style={{ fontSize: '14px', color: '#dc2626', lineHeight: '1.5' }}>{report.aiSections.recommendations}</p>
+                  <p style={{ fontSize: '14px', color: '#dc2626', lineHeight: '1.5' }}>{String(sections.recommendations)}</p>
                 </div>
               )}
             </div>
           </div>
-        )}
+          );
+        })()}
 
         {/* Call to Action */}
         <div style={{ 

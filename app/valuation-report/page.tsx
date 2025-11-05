@@ -70,22 +70,24 @@ export default function ValuationReportPage() {
   // Example: extract metrics (customize as needed)
   const { valuation, calculatedValue, method, metrics, drivers, risks, recommendations, aiSections } = report;
   // metrics may include: profitMargin, revenue, netProfit, addBacks, etc.
-  const profitMargin = metrics?.profitMargin;
-  const revenue = metrics?.revenue;
-  const netProfit = metrics?.netProfit;
-  const addBacks = metrics?.addBacks;
-  const multiple = metrics?.multiple;
+  const metricsObj = metrics && typeof metrics === 'object' ? metrics as Record<string, unknown> : {};
+  const profitMargin = metricsObj.profitMargin;
+  const revenue = metricsObj.revenue;
+  const netProfit = metricsObj.netProfit;
+  const addBacks = metricsObj.addBacks;
+  const multiple = metricsObj.multiple;
 
   // Extract industry benchmark multiple from aiSections.benchmarks (try to parse a number, fallback to 2.5)
+  const aiSectionsObj = aiSections && typeof aiSections === 'object' ? aiSections as Record<string, unknown> : {};
   let industryBenchmark = 2.5;
-  if (aiSections?.benchmarks) {
-    const match = aiSections.benchmarks.match(/(\d+(\.\d+)?)[xX]/);
+  if (aiSectionsObj.benchmarks && typeof aiSectionsObj.benchmarks === 'string') {
+    const match = aiSectionsObj.benchmarks.match(/(\d+(\.\d+)?)[xX]/);
     if (match) {
       industryBenchmark = parseFloat(match[1]);
     }
   }
   // Use business multiple from metrics, fallback to 0
-  const businessMultiple = multiple || 0;
+  const businessMultiple = Number(multiple) || 0;
   const benchmarkData = [
     { name: 'Your Business', Multiple: businessMultiple },
     { name: 'Industry Avg', Multiple: industryBenchmark }
@@ -97,21 +99,22 @@ export default function ValuationReportPage() {
   // Calculate a simple saleability score (1-10)
   function getSaleabilityScore() {
     let score = 5;
+    const profitMarginNum = Number(profitMargin) || 0;
     // Profit margin
-    if (profitMargin > 20) score += 2;
-    else if (profitMargin > 10) score += 1;
-    else if (profitMargin < 7) score -= 1;
+    if (profitMarginNum > 20) score += 2;
+    else if (profitMarginNum > 10) score += 1;
+    else if (profitMarginNum < 7) score -= 1;
     // Recurring revenue (for trade/generic)
-    if (metrics?.recurring || metrics?.recurringRevenue === 'Yes') score += 1;
+    if (metricsObj.recurring || metricsObj.recurringRevenue === 'Yes') score += 1;
     // Owner involvement
-    if (metrics?.ownerInvolvement === 'Low') score += 1;
-    else if (metrics?.ownerInvolvement === 'High') score -= 1;
+    if (metricsObj.ownerInvolvement === 'Low') score += 1;
+    else if (metricsObj.ownerInvolvement === 'High') score -= 1;
     // Drivers/Strengths
-    if (drivers && drivers.length > 1) score += 1;
+    if (drivers && Array.isArray(drivers) && drivers.length > 1) score += 1;
     // Risks
-    if (risks && risks.length > 1) score -= 1;
+    if (risks && Array.isArray(risks) && risks.length > 1) score -= 1;
     // Recommendations (if many, maybe more to fix)
-    if (recommendations && recommendations.length > 2) score -= 1;
+    if (recommendations && Array.isArray(recommendations) && recommendations.length > 2) score -= 1;
     // Clamp between 1 and 10
     return Math.max(1, Math.min(10, Math.round(score)));
   }
@@ -131,10 +134,10 @@ export default function ValuationReportPage() {
         {/* Valuation Summary Card */}
         <div className="mb-8 p-6 rounded-xl bg-blue-50 border border-blue-200">
           <h2 className="text-2xl font-semibold text-blue-900 mb-2">Valuation Summary</h2>
-          <p className="text-lg text-blue-800 mb-2">Estimated Valuation: <span className="font-bold">{calculatedValue ? `$${calculatedValue.toLocaleString()}` : 'N/A'}</span></p>
-          <p className="text-blue-700 mb-2">Method Used: <span className="font-medium">{method || 'N/A'}</span></p>
-          <p className="text-blue-700 mb-2">{aiSections?.valuationConfirmation || 'No summary available.'}</p>
-          <p className="text-blue-700">AI Analysis: <span className="font-medium">{valuation || 'N/A'}</span></p>
+          <p className="text-lg text-blue-800 mb-2">Estimated Valuation: <span className="font-bold">{calculatedValue ? `$${Number(calculatedValue).toLocaleString()}` : 'N/A'}</span></p>
+          <p className="text-blue-700 mb-2">Method Used: <span className="font-medium">{method ? String(method) : 'N/A'}</span></p>
+          <p className="text-blue-700 mb-2">{typeof aiSectionsObj.valuationConfirmation === 'string' ? aiSectionsObj.valuationConfirmation : 'No summary available.'}</p>
+          <p className="text-blue-700">AI Analysis: <span className="font-medium">{valuation ? String(valuation) : 'N/A'}</span></p>
         </div>
         {/* Saleability Score Card */}
         <div className="mb-8 p-6 rounded-2xl bg-gradient-to-r from-red-100 via-yellow-100 to-green-100 border border-green-200 shadow flex flex-col items-center">
@@ -155,25 +158,25 @@ export default function ValuationReportPage() {
         <div className="mb-8 p-6 rounded-xl bg-white border border-gray-200">
           <h3 className="text-xl font-semibold text-blue-900 mb-2">Valuation Methods</h3>
           <p className="text-gray-700 mb-2">Other ways to value your business, each with its own focus and strengths.</p>
-          <div className="prose prose-sm max-w-none text-blue-900 whitespace-pre-line">{aiSections?.valuationMethods || 'No additional methods provided.'}</div>
+          <div className="prose prose-sm max-w-none text-blue-900 whitespace-pre-line">{typeof aiSectionsObj.valuationMethods === 'string' ? aiSectionsObj.valuationMethods : 'No additional methods provided.'}</div>
         </div>
         {/* Key Factors Card */}
         <div className="mb-8 p-6 rounded-xl bg-white border border-gray-200">
           <h3 className="text-xl font-semibold text-blue-900 mb-2">Key Value Drivers</h3>
           <p className="text-gray-700 mb-2">These are the main drivers that impact your business&apos;s value.</p>
-          <div className="prose prose-sm max-w-none text-blue-900 whitespace-pre-line">{aiSections?.keyFactors || 'No key factors provided.'}</div>
+          <div className="prose prose-sm max-w-none text-blue-900 whitespace-pre-line">{typeof aiSectionsObj.keyFactors === 'string' ? aiSectionsObj.keyFactors : 'No key factors provided.'}</div>
         </div>
         {/* Risks & Opportunities Card */}
         <div className="mb-8 p-6 rounded-xl bg-white border border-gray-200">
           <h3 className="text-xl font-semibold text-blue-900 mb-2">Risks & Opportunities</h3>
           <p className="text-gray-700 mb-2">Risks may lower your valuation, while opportunities can help you grow.</p>
-          <div className="prose prose-sm max-w-none text-blue-900 whitespace-pre-line">{aiSections?.risksAndOpportunities || 'No risks or opportunities provided.'}</div>
+          <div className="prose prose-sm max-w-none text-blue-900 whitespace-pre-line">{typeof aiSectionsObj.risksAndOpportunities === 'string' ? aiSectionsObj.risksAndOpportunities : 'No risks or opportunities provided.'}</div>
         </div>
         {/* Recommendations Card */}
         <div className="mb-8 p-6 rounded-xl bg-white border border-gray-200">
           <h3 className="text-xl font-semibold text-blue-900 mb-2">Recommendations</h3>
           <p className="text-gray-700 mb-2">Steps you can take to increase your business&apos;s value.</p>
-          <div className="prose prose-sm max-w-none text-blue-900 whitespace-pre-line">{aiSections?.recommendations || 'No recommendations provided.'}</div>
+          <div className="prose prose-sm max-w-none text-blue-900 whitespace-pre-line">{typeof aiSectionsObj.recommendations === 'string' ? aiSectionsObj.recommendations : 'No recommendations provided.'}</div>
         </div>
         {/* Benchmarks Card */}
         <div className="mb-8 p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-100 border border-blue-200 shadow-lg">
@@ -207,20 +210,20 @@ export default function ValuationReportPage() {
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div className="prose prose-sm max-w-none text-blue-900 whitespace-pre-line mt-2">{aiSections?.benchmarks || 'No benchmarks provided.'}</div>
+          <div className="prose prose-sm max-w-none text-blue-900 whitespace-pre-line mt-2">{typeof aiSectionsObj.benchmarks === 'string' ? aiSectionsObj.benchmarks : 'No benchmarks provided.'}</div>
         </div>
         {/* Profitability Section (existing) */}
         <div className="mb-8">
           <h3 className="text-xl font-semibold text-gray-900 mb-2">Profitability</h3>
           <div className="flex flex-col md:flex-row md:items-center md:space-x-8">
             <div className="mb-4 md:mb-0">
-              <RevenuePieChart revenue={revenue || 240000} profit={netProfit || 36000} addBacks={addBacks || 10000} />
+              <RevenuePieChart revenue={Number(revenue) || 240000} profit={Number(netProfit) || 36000} addBacks={Number(addBacks) || 10000} />
             </div>
             <div className="flex-1">
-              <Chart value={profitMargin || 0} label="Profit Margin" />
-              <Chart value={revenue ? Math.min(revenue / 10000, 100) : 0} label="Revenue (scaled)" />
-              <Chart value={netProfit ? Math.min(netProfit / 10000, 100) : 0} label="Net Profit (scaled)" />
-              <Chart value={multiple || 0} label="Valuation Multiple" />
+              <Chart value={Number(profitMargin) || 0} label="Profit Margin" />
+              <Chart value={revenue ? Math.min(Number(revenue) / 10000, 100) : 0} label="Revenue (scaled)" />
+              <Chart value={netProfit ? Math.min(Number(netProfit) / 10000, 100) : 0} label="Net Profit (scaled)" />
+              <Chart value={Number(multiple) || 0} label="Valuation Multiple" />
             </div>
           </div>
         </div>
@@ -231,13 +234,13 @@ export default function ValuationReportPage() {
             <div>
               <h4 className="font-medium text-green-700 mb-1">Strengths</h4>
               <ul className="list-disc pl-6 text-green-800">
-                {(drivers && drivers.length > 0 ? drivers : ['Strong financials', 'Growing market']).map((s: string, i: number) => <li key={i}>{s}</li>)}
+                {(Array.isArray(drivers) && drivers.length > 0 ? drivers : ['Strong financials', 'Growing market']).map((s: string, i: number) => <li key={i}>{s}</li>)}
               </ul>
             </div>
             <div>
               <h4 className="font-medium text-red-700 mb-1">Risks</h4>
               <ul className="list-disc pl-6 text-red-800">
-                {(risks && risks.length > 0 ? risks : ['Customer concentration', 'Market volatility']).map((r: string, i: number) => <li key={i}>{r}</li>)}
+                {(Array.isArray(risks) && risks.length > 0 ? risks : ['Customer concentration', 'Market volatility']).map((r: string, i: number) => <li key={i}>{r}</li>)}
               </ul>
             </div>
           </div>
@@ -246,7 +249,7 @@ export default function ValuationReportPage() {
         <div className="mb-8">
           <h3 className="text-xl font-semibold text-blue-900 mb-2">Recommendations</h3>
           <ul className="list-disc pl-6 text-blue-800">
-            {(recommendations && recommendations.length > 0 ? recommendations : ['No specific recommendations at this time.']).map((rec: string, i: number) => <li key={i}>{rec}</li>)}
+            {(Array.isArray(recommendations) && recommendations.length > 0 ? recommendations : ['No specific recommendations at this time.']).map((rec: string, i: number) => <li key={i}>{rec}</li>)}
           </ul>
         </div>
         {/* Collapsible Full Letter */}
@@ -259,7 +262,7 @@ export default function ValuationReportPage() {
           </button>
           {showFullLetter && (
             <div className="prose prose-sm max-w-none bg-blue-50 border border-blue-200 rounded-xl p-4 mt-2 text-blue-900 whitespace-pre-line">
-              {aiSections?.fullLetter || 'No full analysis available.'}
+              {typeof aiSectionsObj.fullLetter === 'string' ? aiSectionsObj.fullLetter : 'No full analysis available.'}
             </div>
           )}
         </div>
