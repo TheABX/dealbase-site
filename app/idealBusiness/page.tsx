@@ -130,6 +130,7 @@ export default function IdealStartupPage() {
       <div>hello</div>
     );
   } catch (error) {
+    // TypeScript-safe error handling
     const errorMessage = error instanceof Error ? error.message : 'An error occurred';
     content = <div>Error: {errorMessage}</div>;
   }
