@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Navbar from "../components/Navbar";
 
-export default function DashboardPage() {
+function DashboardContent() {
   const [activeTab, setActiveTab] = useState('overview');
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
   const [userJourney, setUserJourney] = useState('');
@@ -446,5 +446,17 @@ export default function DashboardPage() {
         )}
       </main>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#F7F8FC] flex items-center justify-center">
+        <div className="text-[#23235B] text-lg">Loading dashboard...</div>
+      </div>
+    }>
+      <DashboardContent />
+    </Suspense>
   );
 } 
